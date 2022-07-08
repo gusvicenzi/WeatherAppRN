@@ -8,6 +8,7 @@ import {
   ScrollView,
   TouchableOpacity,
   FlatList,
+  Image,
 } from 'react-native'
 // import { ACCUWEATHERAPIKEY } from '@env'
 
@@ -15,7 +16,7 @@ import clouds from '../../assets/imgs/clouds.png'
 import DailyForecast from '../components/DailyForecast'
 import HourlyForecast from '../components/HourlyForecast'
 import axios from 'axios'
-import { initialState } from '../common'
+import { initialState, getIcon } from '../common'
 
 export default class Home extends Component {
   state = {
@@ -63,23 +64,13 @@ export default class Home extends Component {
         `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityCode}?apikey=m7YVXQ5NAYdGRbXEygi5hyuFUcT9657F&language=pt-br&metric=true`
       )
       const dailyForecast = []
-      for (day of res.data.DailyForecasts) {
+      for (let day of res.data.DailyForecasts) {
         dailyForecast.push(this.dailyForecast(day))
       }
 
       this.setState({
         dailyForecast,
       })
-
-      // this.setState({
-      //   dailyForecast: [
-      //     this.dailyForecast(res.data.DailyForecasts[0]),
-      //     this.dailyForecast(res.data.DailyForecasts[1]),
-      //     this.dailyForecast(res.data.DailyForecasts[2]),
-      //     this.dailyForecast(res.data.DailyForecasts[3]),
-      //     this.dailyForecast(res.data.DailyForecasts[4]),
-      //   ],
-      // })
     } catch (e) {
       console.log(e)
     }
@@ -92,7 +83,7 @@ export default class Home extends Component {
         `http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/${cityCode}?apikey=m7YVXQ5NAYdGRbXEygi5hyuFUcT9657F&language=pt-br&metric=true`
       )
       const hourly12Forecast = []
-      for (hour of res.data) {
+      for (let hour of res.data) {
         hourly12Forecast.push(this.hourlyForecast(hour))
       }
       this.setState({
@@ -141,7 +132,7 @@ export default class Home extends Component {
       iconPhrase: nthHourDay.IconPhrase,
       hasPrecipitation: nthHourDay.HasPrecipitation,
       isDaylight: nthHourDay.IsDaylight,
-      temp: nthHourDay.Temperature.Value,
+      temp: Math.round(nthHourDay.Temperature.Value),
       precipitaionProbability: nthHourDay.precipitaionProbability,
     }
     return hourForecast
@@ -168,6 +159,10 @@ export default class Home extends Component {
                 Máx.: {this.state.dailyForecast[0].maxTemp}° Mín.:{' '}
                 {this.state.dailyForecast[0].minTemp}°
               </Text>
+              <Image
+                source={getIcon(this.state.current.icon)}
+                style={{ width: 50, height: 50 }}
+              />
             </View>
 
             <View style={styles.main}>
@@ -177,12 +172,7 @@ export default class Home extends Component {
                   horizontal
                   data={this.state.hourly12Forecast}
                   keyExtractor={item => item.date}
-                  renderItem={({ item }) => (
-                    <HourlyForecast
-                      hour={item.date.substring(11, 13)}
-                      temp={item.temp}
-                    />
-                  )}
+                  renderItem={({ item }) => <HourlyForecast {...item} />}
                 />
               </View>
 
@@ -190,30 +180,10 @@ export default class Home extends Component {
                 <Text style={[styles.infoContainerTitle, { marginBottom: 5 }]}>
                   Previsão para 5 dias
                 </Text>
-                <DailyForecast
-                  day={this.state.dailyForecast[0].date.substring(8, 10)}
-                  minTemp={this.state.dailyForecast[0].minTemp}
-                  maxTemp={this.state.dailyForecast[0].maxTemp}
-                />
-                <DailyForecast
-                  day={this.state.dailyForecast[1].date.substring(8, 10)}
-                  minTemp={this.state.dailyForecast[1].minTemp}
-                  maxTemp={this.state.dailyForecast[1].maxTemp}
-                />
-                <DailyForecast
-                  day={this.state.dailyForecast[2].date.substring(8, 10)}
-                  minTemp={this.state.dailyForecast[2].minTemp}
-                  maxTemp={this.state.dailyForecast[2].maxTemp}
-                />
-                <DailyForecast
-                  day={this.state.dailyForecast[3].date.substring(8, 10)}
-                  minTemp={this.state.dailyForecast[3].minTemp}
-                  maxTemp={this.state.dailyForecast[3].maxTemp}
-                />
-                <DailyForecast
-                  day={this.state.dailyForecast[4].date.substring(8, 10)}
-                  minTemp={this.state.dailyForecast[4].minTemp}
-                  maxTemp={this.state.dailyForecast[4].maxTemp}
+                <FlatList
+                  data={this.state.dailyForecast}
+                  keyExtractor={item => item.date}
+                  renderItem={({ item }) => <DailyForecast {...item} />}
                 />
               </View>
               <TouchableOpacity onPress={this.get5DayForecast}>

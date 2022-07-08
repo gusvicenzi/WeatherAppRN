@@ -1,17 +1,14 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Image } from 'react-native'
 
-import Icon from 'react-native-vector-icons/MaterialIcons'
+// import Icon from 'react-native-vector-icons/MaterialIcons'
+import { getIcon } from '../common'
 
 export default props => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{props.hour}</Text>
-      <Icon
-        name="cloud"
-        size={40}
-        color="#FFF"
-      />
+      <Text style={styles.text}>{props.date.substring(11, 13)}</Text>
+      <Image source={getIcon(props.icon)} />
       <Text style={styles.text}>{props.temp}°</Text>
     </View>
   )
