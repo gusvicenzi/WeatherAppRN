@@ -128,8 +128,10 @@ const getIcon = number => {
 }
 
 const initialState = {
-  cityName: 'Blumenau',
+  cityName: 'Abuble',
   cityCode: '35954',
+  hasLocationPermission: true,
+  latlng: '',
   current: {
     date: '2022-07-07T14:20:00-03:00',
     temp: 29,

@@ -9,6 +9,9 @@ import {
   TouchableOpacity,
   FlatList,
   Image,
+  LogBox,
+  PermissionsAndroid,
+  AsyncStorage,
 } from 'react-native'
 // import { ACCUWEATHERAPIKEY } from '@env'
 
@@ -17,17 +20,123 @@ import DailyForecast from '../components/DailyForecast'
 import HourlyForecast from '../components/HourlyForecast'
 import axios from 'axios'
 import { initialState, getIcon } from '../common'
+import Geolocation from 'react-native-geolocation-service'
+
+import { accuweatherApiKey, geolocationApiKey } from '../../apiKey'
 
 export default class Home extends Component {
   state = {
     ...initialState,
   }
 
-  getCityInfo = async () => {
+  componentDidMount = async () => {
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
+    // const stateString = await AsyncStorage.getItem('weatherState')
+    // const savedState = JSON.parse(stateString) || initialState
+    // this.setState(
+    //   savedState,
+    //   this.updateWeather
+    // )
+    // this.updateWeather()
+    this.getLatlng()
+  }
+
+  updateWeather = async () => {
+    this.getLatlng()
+    const list = [this.getCityInfoByLatLng, this.getCurrentWeather]
+    for (let fn of list) {
+      await fn()
+    }
+    // try {
+    //   await this.getCityInfoByLatLng()
+    //   await this.getCurrentWeather()
+    //   await this.get12HourForecast()
+    //   await this.get5DayForecast()
+    // } catch (e) {
+    //   console.log(e)
+    // }
+    // console.log(this.state)
+  }
+
+  requestLocationPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: 'WeatherApp location permisson',
+          message:
+            'WeatherApp needs access to your location ' +
+            'to get your best weather information.',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        }
+      )
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('You can use the location')
+        this.setState({ hasLocationPermission: true })
+      } else {
+        console.log('Location permission denied')
+      }
+    } catch (err) {
+      console.warn(err)
+    }
+  }
+
+  getLatlng = () => {
+    if (this.state.hasLocationPermission) {
+      Geolocation.getCurrentPosition(
+        position => {
+          this.setState(
+            {
+              latlng: `${position.coords.latitude},${position.coords.longitude}`,
+            },
+            this.getCityInfoByLatLng
+          )
+          console.log(this.state.latlng)
+        },
+        error => {
+          // See error code charts below.
+          console.log(error.code, error.message)
+        },
+        { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+      )
+    }
+  }
+
+  // getPostalCode = async () => {
+  //   try {
+  //     const res = await axios.get(
+  //       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.latlng}&key=${geolocationApiKey}`
+  //       // 'https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyCbMVWH7fsC4lORWSEDupWh6JFvE6jajms'
+  //     )
+  //     const index = res.data.results[0].address_components
+  //     const postal = res.data.results[0].address_components[index-1].long_name
+  //     console.log(postal)
+  //     this.setState({ postalCode: postal })
+  //   } catch (e) {}
+  // }
+
+  getCityInfoByLatLng = async () => {
+    try {
+      const res = await axios.get(
+        `http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${accuweatherApiKey}&q=${this.state.latlng}&language=pt-br`
+      )
+      const cityCode = res.data.Key
+      const cityName = res.data.ParentCity.LocalizedName
+      console.log('Código da cidade accuweather:', cityCode)
+      console.log('Nome da cidade:', cityName)
+      this.setState({ cityCode, cityName }, this.getCurrentWeather)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  getCityInfoByCityName = async () => {
     try {
       const cityName = this.state.cityName
       const res = await axios.get(
-        `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=m7YVXQ5NAYdGRbXEygi5hyuFUcT9657F&q=${cityName}&language=pt-br&details=true&offset=1`
+        `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${accuweatherApiKey}&q=${cityName}&language=pt-br&details=true&offset=1`
       )
       const cityCode = res.data[0].Key
       this.setState({ cityCode })
@@ -39,38 +148,23 @@ export default class Home extends Component {
     try {
       const cityCode = this.state.cityCode
       const res = await axios.get(
-        `http://dataservice.accuweather.com/currentconditions/v1/${cityCode}?apikey=m7YVXQ5NAYdGRbXEygi5hyuFUcT9657F&language=pt-br`
+        `http://dataservice.accuweather.com/currentconditions/v1/${cityCode}?apikey=${accuweatherApiKey}&language=pt-br`
       )
       const today = res.data[0]
-      this.setState({
-        current: {
-          date: today.LocalObservationDateTime,
-          temp: Math.round(today.Temperature.Metric.Value),
-          icon: today.WeatherIcon,
-          iconPhrase: today.WeatherText,
-          hasPrecipitation: today.HasPrecipitation,
-          precipitaionType: today.PrecipitationType,
-          isDayTime: today.IsDayTime,
+      this.setState(
+        {
+          current: {
+            date: today.LocalObservationDateTime,
+            temp: Math.round(today.Temperature.Metric.Value),
+            icon: today.WeatherIcon,
+            iconPhrase: today.WeatherText,
+            hasPrecipitation: today.HasPrecipitation,
+            precipitaionType: today.PrecipitationType,
+            isDayTime: today.IsDayTime,
+          },
         },
-      })
-    } catch (e) {
-      console.log(e)
-    }
-  }
-  get5DayForecast = async () => {
-    try {
-      const cityCode = this.state.cityCode
-      const res = await axios.get(
-        `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityCode}?apikey=m7YVXQ5NAYdGRbXEygi5hyuFUcT9657F&language=pt-br&metric=true`
+        this.get12HourForecast
       )
-      const dailyForecast = []
-      for (let day of res.data.DailyForecasts) {
-        dailyForecast.push(this.dailyForecast(day))
-      }
-
-      this.setState({
-        dailyForecast,
-      })
     } catch (e) {
       console.log(e)
     }
@@ -80,14 +174,36 @@ export default class Home extends Component {
     try {
       const cityCode = this.state.cityCode
       const res = await axios.get(
-        `http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/${cityCode}?apikey=m7YVXQ5NAYdGRbXEygi5hyuFUcT9657F&language=pt-br&metric=true`
+        `http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/${cityCode}?apikey=${accuweatherApiKey}&language=pt-br&metric=true`
       )
       const hourly12Forecast = []
       for (let hour of res.data) {
         hourly12Forecast.push(this.hourlyForecast(hour))
       }
+      this.setState(
+        {
+          hourly12Forecast,
+        },
+        this.get5DayForecast
+      )
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  get5DayForecast = async () => {
+    try {
+      const cityCode = this.state.cityCode
+      const res = await axios.get(
+        `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityCode}?apikey=${accuweatherApiKey}&language=pt-br&metric=true`
+      )
+      const dailyForecast = []
+      for (let day of res.data.DailyForecasts) {
+        dailyForecast.push(this.dailyForecast(day))
+      }
+
       this.setState({
-        hourly12Forecast,
+        dailyForecast,
       })
     } catch (e) {
       console.log(e)
@@ -195,6 +311,18 @@ export default class Home extends Component {
               <TouchableOpacity onPress={this.get12HourForecast}>
                 <Text>Get 12 hour forecast</Text>
               </TouchableOpacity>
+              <TouchableOpacity onPress={this.requestLocationPermission}>
+                <Text>Get location permission</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={this.getLatlng}>
+                <Text>Get lat lng</Text>
+              </TouchableOpacity>
+              {/* <TouchableOpacity onPress={this.getPostalCode}>
+                <Text>Get postal code</Text>
+              </TouchableOpacity> */}
+              <TouchableOpacity onPress={this.getCityInfoByLatLng}>
+                <Text>Get city info by latlng</Text>
+              </TouchableOpacity>
             </View>
           </ScrollView>
         </ImageBackground>
@@ -251,7 +379,7 @@ const styles = StyleSheet.create({
     height: 150,
   },
   infoDaily: {
-    height: '60%',
+    height: 285,
   },
   infoContainerTitle: {
     color: '#FFF',
