@@ -11,11 +11,10 @@ import {
   Image,
   LogBox,
   PermissionsAndroid,
-  AsyncStorage,
 } from 'react-native'
 // import { ACCUWEATHERAPIKEY } from '@env'
-
-import clouds from '../../assets/imgs/clouds.png'
+import cloud from '../../assets/imgs/bgImgs/bgCloudyNight.png'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import DailyForecast from '../components/DailyForecast'
 import HourlyForecast from '../components/HourlyForecast'
 import axios from 'axios'
@@ -31,22 +30,22 @@ export default class Home extends Component {
 
   componentDidMount = async () => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
-    // const stateString = await AsyncStorage.getItem('weatherState')
-    // const savedState = JSON.parse(stateString) || initialState
-    // this.setState(
-    //   savedState,
-    //   this.updateWeather
-    // )
+    const stateString = await AsyncStorage.getItem('weatherState')
+    const savedState = JSON.parse(stateString) || initialState
+    this.setState(
+      savedState
+      // this.updateWeather
+    )
     // this.updateWeather()
     this.getLatlng()
   }
 
   updateWeather = async () => {
-    this.getLatlng()
-    const list = [this.getCityInfoByLatLng, this.getCurrentWeather]
-    for (let fn of list) {
-      await fn()
-    }
+    // this.getLatlng()
+    // const list = [this.getCityInfoByLatLng, this.getCurrentWeather]
+    // for (let fn of list) {
+    //   await fn()
+    // }
     // try {
     //   await this.getCityInfoByLatLng()
     //   await this.getCurrentWeather()
@@ -90,8 +89,8 @@ export default class Home extends Component {
           this.setState(
             {
               latlng: `${position.coords.latitude},${position.coords.longitude}`,
-            },
-            this.getCityInfoByLatLng
+            }
+            // this.getCityInfoByLatLng
           )
           console.log(this.state.latlng)
         },
@@ -102,6 +101,11 @@ export default class Home extends Component {
         { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
       )
     }
+  }
+
+  saveSateToAsyncStorage = async () => {
+    await AsyncStorage.setItem('weatherState', JSON.stringify(this.state))
+    console.log('Salvou estado no asyncstorage')
   }
 
   // getPostalCode = async () => {
@@ -122,8 +126,9 @@ export default class Home extends Component {
       const res = await axios.get(
         `http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${accuweatherApiKey}&q=${this.state.latlng}&language=pt-br`
       )
+      console.log(res.data)
       const cityCode = res.data.Key
-      const cityName = res.data.ParentCity.LocalizedName
+      const cityName = res.data.LocalizedName
       console.log('Código da cidade accuweather:', cityCode)
       console.log('Nome da cidade:', cityName)
       this.setState({ cityCode, cityName }, this.getCurrentWeather)
@@ -144,6 +149,7 @@ export default class Home extends Component {
       console.log(e)
     }
   }
+
   getCurrentWeather = async () => {
     try {
       const cityCode = this.state.cityCode
@@ -202,9 +208,12 @@ export default class Home extends Component {
         dailyForecast.push(this.dailyForecast(day))
       }
 
-      this.setState({
-        dailyForecast,
-      })
+      this.setState(
+        {
+          dailyForecast,
+        },
+        this.saveSateToAsyncStorage
+      )
     } catch (e) {
       console.log(e)
     }
@@ -258,7 +267,7 @@ export default class Home extends Component {
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <ImageBackground
-          source={clouds}
+          source={cloud}
           style={styles.background}>
           <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.header}>
@@ -277,13 +286,19 @@ export default class Home extends Component {
               </Text>
               <Image
                 source={getIcon(this.state.current.icon)}
-                style={{ width: 50, height: 50 }}
+                style={{ width: 90, height: 70 }}
               />
             </View>
 
             <View style={styles.main}>
               <View style={[styles.infoContainer, styles.infoHourly]}>
-                <Text style={styles.infoContainerTitle}>Infos hora a hora</Text>
+                <Text
+                  style={[
+                    styles.infoContainerTitle,
+                    styles.infoContainerTitleHourly,
+                  ]}>
+                  Hora à hora
+                </Text>
                 <FlatList
                   horizontal
                   data={this.state.hourly12Forecast}
@@ -302,7 +317,7 @@ export default class Home extends Component {
                   renderItem={({ item }) => <DailyForecast {...item} />}
                 />
               </View>
-              <TouchableOpacity onPress={this.get5DayForecast}>
+              {/* <TouchableOpacity onPress={this.get5DayForecast}>
                 <Text>Get 5 day forecast</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={this.getCurrentWeather}>
@@ -317,12 +332,15 @@ export default class Home extends Component {
               <TouchableOpacity onPress={this.getLatlng}>
                 <Text>Get lat lng</Text>
               </TouchableOpacity>
-              {/* <TouchableOpacity onPress={this.getPostalCode}>
+              <TouchableOpacity onPress={this.getPostalCode}>
                 <Text>Get postal code</Text>
-              </TouchableOpacity> */}
+              </TouchableOpacity>
               <TouchableOpacity onPress={this.getCityInfoByLatLng}>
                 <Text>Get city info by latlng</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
+              <Text style={{ textAlign: 'center' }}>
+                Deselvolvido por deVicenzi
+              </Text>
             </View>
           </ScrollView>
         </ImageBackground>
@@ -340,7 +358,8 @@ const styles = StyleSheet.create({
   },
   header: {
     flex: 1,
-    paddingVertical: 35,
+    paddingTop: 35,
+    paddingBottom: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -366,14 +385,21 @@ const styles = StyleSheet.create({
   main: {
     flex: 3,
     width: '85%',
-    marginBottom: 60,
+    marginBottom: 30,
   },
   infoContainer: {
     alignItems: 'center',
     padding: 5,
-    marginVertical: 5,
+    marginBottom: 10,
     borderRadius: 10,
     backgroundColor: 'rgba(0,0,0,0.2)',
+  },
+  infoContainerTitleHourly: {
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(255,255,255,0.5)',
+    width: '100%',
+    textAlign: 'center',
+    // alignItems: 'center',
   },
   infoHourly: {
     height: 150,

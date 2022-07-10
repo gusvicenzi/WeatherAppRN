@@ -38,8 +38,10 @@ import icon41 from '../assets/imgs/icons/41-s.png'
 import icon42 from '../assets/imgs/icons/42-s.png'
 import icon43 from '../assets/imgs/icons/43-s.png'
 import icon44 from '../assets/imgs/icons/44-s.png'
+import bgCloudy from '../assets/imgs/bgImgs/bgCloudy.png'
+import bgCloudyNight from '../assets/imgs/bgImgs/bgCloudyNight.png'
 
-const getIcon = number => {
+const getIcon = (number, isDayTime) => {
   // return global[`icon${number}`]
   switch (number) {
     case 1:
@@ -56,6 +58,11 @@ const getIcon = number => {
       return icon6
     case 7:
       return icon7
+    // if (isDayTime) {
+    //   return [icon7, bgCloudy]
+    // } else {
+    //   return [icon7, bgCloudyNight]
+    // }
     case 8:
       return icon8
     case 11:
