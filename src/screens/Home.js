@@ -13,7 +13,7 @@ import {
   PermissionsAndroid,
 } from 'react-native'
 // import { ACCUWEATHERAPIKEY } from '@env'
-import cloud from '../../assets/imgs/bgImgs/bgCloudyNight.png'
+
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import DailyForecast from '../components/DailyForecast'
 import HourlyForecast from '../components/HourlyForecast'
@@ -21,7 +21,7 @@ import axios from 'axios'
 import { initialState, getIcon } from '../common'
 import Geolocation from 'react-native-geolocation-service'
 
-import { accuweatherApiKey, geolocationApiKey } from '../../apiKey'
+import { accuweatherApiKey } from '../../apiKey'
 
 export default class Home extends Component {
   state = {
@@ -267,7 +267,9 @@ export default class Home extends Component {
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <ImageBackground
-          source={cloud}
+          source={
+            getIcon(this.state.current.icon, this.state.current.isDayTime)[1]
+          }
           style={styles.background}>
           <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.header}>
@@ -285,8 +287,13 @@ export default class Home extends Component {
                 {this.state.dailyForecast[0].minTemp}°
               </Text>
               <Image
-                source={getIcon(this.state.current.icon)}
-                style={{ width: 90, height: 70 }}
+                source={
+                  getIcon(
+                    this.state.current.icon,
+                    this.state.current.isDayTime
+                  )[0]
+                }
+                style={{ width: 100, height: 70 }}
               />
             </View>
 
@@ -339,7 +346,7 @@ export default class Home extends Component {
                 <Text>Get city info by latlng</Text>
               </TouchableOpacity> */}
               <Text style={{ textAlign: 'center' }}>
-                Deselvolvido por deVicenzi
+                Desenvolvido por deVicenzi
               </Text>
             </View>
           </ScrollView>

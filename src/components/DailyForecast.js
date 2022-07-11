@@ -8,7 +8,7 @@ export default props => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{props.date.substring(8, 10)}</Text>
-      <Image source={getIcon(props.day.icon)} />
+      <Image source={getIcon(props.day.icon)[0]} />
       <Text style={styles.text}>Mín.: {props.minTemp}°</Text>
       <Text style={styles.text}>Máx.: {props.maxTemp}°</Text>
     </View>

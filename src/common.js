@@ -38,97 +38,175 @@ import icon41 from '../assets/imgs/icons/41-s.png'
 import icon42 from '../assets/imgs/icons/42-s.png'
 import icon43 from '../assets/imgs/icons/43-s.png'
 import icon44 from '../assets/imgs/icons/44-s.png'
-import bgCloudy from '../assets/imgs/bgImgs/bgCloudy.png'
-import bgCloudyNight from '../assets/imgs/bgImgs/bgCloudyNight.png'
+import cloudyDay from '../assets/imgs/bgImgs/cloudyDay.png'
+import cloudyNight from '../assets/imgs/bgImgs/cloudyNight.png'
+import cloudySunnyWFlurriesSnow from '../assets/imgs/bgImgs/cloudySunnyWFlurriesSnow.png'
+import cloudySunnyWShowers from '../assets/imgs/bgImgs/cloudySunnyWShowers.png'
+import cloudySunnyWTStorms from '../assets/imgs/bgImgs/cloudySunnyWTStorms.png'
+import day from '../assets/imgs/bgImgs/day.png'
+import drearyDay from '../assets/imgs/bgImgs/drearyDay.png'
+import drearyNight from '../assets/imgs/bgImgs/drearyNight.png'
+import flurriesSnowDay from '../assets/imgs/bgImgs/flurriesSnowDay.png'
+import flurriesSnowNight from '../assets/imgs/bgImgs/flurriesSnowNight.png'
+import fogDay from '../assets/imgs/bgImgs/fogDay.png'
+import fogNight from '../assets/imgs/bgImgs/fogNight.png'
+import iceSleetRainSnowDay from '../assets/imgs/bgImgs/iceSleetRainSnowDay.png'
+import iceSleetRainSnowNight from '../assets/imgs/bgImgs/iceSleetRainSnowNight.png'
+import mostlySunny from '../assets/imgs/bgImgs/mostlySunny.png'
+import intToMostlyCloudy from '../assets/imgs/bgImgs/intToMostlyCloudy.png'
+import night from '../assets/imgs/bgImgs/Night.png'
+import partlySunny from '../assets/imgs/bgImgs/partlySunny.png'
+import rainDay from '../assets/imgs/bgImgs/RainDay.png'
+import rainNight from '../assets/imgs/bgImgs/RainNight.png'
+import showersDay from '../assets/imgs/bgImgs/showersDay.png'
+import showersNight from '../assets/imgs/bgImgs/showersNight.png'
+import sunny from '../assets/imgs/bgImgs/sunny.png'
+import tStormsDay from '../assets/imgs/bgImgs/tStormsDay.png'
+import tStormsNight from '../assets/imgs/bgImgs/tStormsNight.png'
 
 const getIcon = (number, isDayTime) => {
   // return global[`icon${number}`]
   switch (number) {
     case 1:
-      return icon1
+      return [icon1, sunny]
     case 2:
-      return icon2
+      return [icon2, mostlySunny]
     case 3:
-      return icon3
+      return [icon3, partlySunny]
     case 4:
-      return icon4
+      return [icon4, intToMostlyCloudy]
     case 5:
-      return icon5
+      return [icon5, intToMostlyCloudy]
     case 6:
-      return icon6
+      return [icon6, intToMostlyCloudy]
     case 7:
-      return icon7
-    // if (isDayTime) {
-    //   return [icon7, bgCloudy]
-    // } else {
-    //   return [icon7, bgCloudyNight]
-    // }
+      if (isDayTime) {
+        return [icon7, cloudyDay]
+      } else {
+        return [icon7, cloudyNight]
+      }
     case 8:
-      return icon8
+      if (isDayTime) {
+        return [icon8, drearyDay]
+      } else {
+        return [icon8, drearyNight]
+      }
     case 11:
-      return icon11
+      if (isDayTime) {
+        return [icon11, fogDay]
+      } else {
+        return [icon11, fogNight]
+      }
     case 12:
-      return icon12
+      if (isDayTime) {
+        return [icon12, showersDay]
+      } else {
+        return [icon12, showersNight]
+      }
     case 13:
-      return icon13
+      return [icon13, cloudySunnyWShowers]
     case 14:
-      return icon14
+      return [icon14, cloudySunnyWShowers]
     case 15:
-      return icon15
+      if (isDayTime) {
+        return [icon15, tStormsDay]
+      } else {
+        return [icon15, tStormsNight]
+      }
     case 16:
-      return icon16
+      return [icon16, cloudySunnyWTStorms]
     case 17:
-      return icon17
+      return [icon17, cloudySunnyWTStorms]
     case 18:
-      return icon18
+      if (isDayTime) {
+        return [icon18, rainDay]
+      } else {
+        return [icon18, rainNight]
+      }
     case 19:
-      return icon19
+      if (isDayTime) {
+        return [icon19, flurriesSnowDay]
+      } else {
+        return [icon19, flurriesSnowNight]
+      }
     case 20:
-      return icon20
+      return [icon20, cloudySunnyWFlurriesSnow]
     case 21:
-      return icon21
+      return [icon21, cloudySunnyWFlurriesSnow]
     case 22:
-      return icon22
+      if (isDayTime) {
+        return [icon22, flurriesSnowDay]
+      } else {
+        return [icon22, flurriesSnowNight]
+      }
     case 23:
-      return icon23
+      return [icon23, cloudySunnyWFlurriesSnow]
     case 24:
-      return icon24
+      if (isDayTime) {
+        return [icon24, iceSleetRainSnowDay]
+      } else {
+        return [icon24, iceSleetRainSnowNight]
+      }
     case 25:
-      return icon25
+      if (isDayTime) {
+        return [icon25, iceSleetRainSnowDay]
+      } else {
+        return [icon25, iceSleetRainSnowNight]
+      }
     case 26:
-      return icon26
+      if (isDayTime) {
+        return [icon26, iceSleetRainSnowDay]
+      } else {
+        return [icon26, iceSleetRainSnowNight]
+      }
     case 29:
-      return icon29
+      if (isDayTime) {
+        return [icon29, iceSleetRainSnowDay]
+      } else {
+        return [icon29, iceSleetRainSnowNight]
+      }
     case 30:
-      return icon30
+      if (isDayTime) {
+        return [icon30, day]
+      } else {
+        return [icon30, night]
+      }
     case 31:
-      return icon31
+      if (isDayTime) {
+        return [icon31, day]
+      } else {
+        return [icon31, night]
+      }
     case 32:
-      return icon32
+      if (isDayTime) {
+        return [icon32, day]
+      } else {
+        return [icon32, night]
+      }
     case 33:
-      return icon33
+      return [icon33, night]
     case 34:
-      return icon34
+      return [icon34, night]
     case 35:
-      return icon35
+      return [icon35, night]
     case 36:
-      return icon36
+      return [icon36, night]
     case 37:
-      return icon37
+      return [icon37, night]
     case 38:
-      return icon38
+      return [icon38, night]
     case 39:
-      return icon39
+      return [icon39, night]
     case 40:
-      return icon40
+      return [icon40, night]
     case 41:
-      return icon41
+      return [icon41, night]
     case 42:
-      return icon42
+      return [icon42, night]
     case 43:
-      return icon43
+      return [icon43, night]
     case 44:
-      return icon44
+      return [icon44, night]
     default:
       return null
   }
