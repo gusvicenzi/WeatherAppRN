@@ -10,38 +10,22 @@ import {
   // useColorScheme
 } from 'react-native'
 import CityCard from '../components/CityCard'
-
-const initialState = {
-  cities: [
-    {
-      cityName: 'Blumenau',
-      cityCode: '35954',
-      icon: 2,
-      temp: 23,
-      maxTemp: 28,
-      minTemp: 14,
-      isDayTime: true,
-      iconPhrase: 'Nublado',
-      time: '12:08',
-    },
-    {
-      cityName: 'Timbó',
-      cityCode: '99999',
-      icon: 3,
-      temp: 22,
-      maxTemp: 29,
-      minTemp: 13,
-      isDayTime: true,
-      iconPhrase: 'Nublado',
-      time: '12:08',
-    },
-  ],
-}
+// import { initialCardState } from '../common'
+import WeatherContext from '../context/WeatherContext'
 export default class SearchCity extends Component {
-  state = {
-    ...initialState,
-  }
   render() {
+    const state = this.context.state
+    // this.context.addCity({
+    //   cityName: 'Pomerode',
+    //   cityCode: '77777',
+    //   icon: 3,
+    //   temp: 22,
+    //   maxTemp: 29,
+    //   minTemp: 13,
+    //   isDayTime: true,
+    //   iconPhrase: 'Nublado',
+    //   time: '12:08',
+    // })
     return (
       <View style={styles.main}>
         <View style={styles.header}>
@@ -55,7 +39,7 @@ export default class SearchCity extends Component {
         </View>
         <View>
           <FlatList
-            data={this.state.cities}
+            data={state.cityList}
             keyExtractor={item => item.cityCode}
             renderItem={({ item }) => <CityCard {...item} />}
           />
@@ -64,6 +48,8 @@ export default class SearchCity extends Component {
     )
   }
 }
+
+SearchCity.contextType = WeatherContext
 
 let isDarkMode = Appearance.getColorScheme() === 'dark'
 let bgColor = isDarkMode ? 'black' : 'white'

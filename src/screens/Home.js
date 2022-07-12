@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useContext } from 'react'
 import {
   SafeAreaView,
   StyleSheet,
@@ -22,6 +22,7 @@ import { initialState, getIcon } from '../common'
 import Geolocation from 'react-native-geolocation-service'
 
 import { accuweatherApiKey } from '../../apiKey'
+import WeatherContext from '../context/WeatherContext'
 
 export default class Home extends Component {
   state = {
@@ -264,6 +265,10 @@ export default class Home extends Component {
   }
 
   render() {
+    // console.log(this.context)
+    // const { cityName } = this.context.state
+    // console.log(Object.keys(this.context.state))
+    // console.log(cityName)
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <ImageBackground
@@ -355,6 +360,8 @@ export default class Home extends Component {
     )
   }
 }
+
+Home.contextType = WeatherContext
 
 const styles = StyleSheet.create({
   background: {

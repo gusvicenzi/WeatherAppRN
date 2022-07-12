@@ -5,6 +5,7 @@ import { View, Text } from 'react-native'
 
 import Home from './screens/Home'
 import SearchCity from './screens/SearchCity'
+import { WeatherProvider } from './context/WeatherContext'
 
 const Tab = createBottomTabNavigator()
 
@@ -18,19 +19,21 @@ const LocalWeather = () => {
 
 export default Navigator = () => {
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={{ headerShown: false }}
-        initialRouteName="SearchCity">
-        <Tab.Screen
-          name="Home"
-          component={Home}
-        />
-        <Tab.Screen
-          name="SearchCity"
-          component={SearchCity}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <WeatherProvider>
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={{ headerShown: false }}
+          initialRouteName="SearchCity">
+          <Tab.Screen
+            name="Home"
+            component={Home}
+          />
+          <Tab.Screen
+            name="SearchCity"
+            component={SearchCity}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </WeatherProvider>
   )
 }

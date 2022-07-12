@@ -14,14 +14,17 @@ export default props => {
       <View style={styles.leftContainer}>
         <View>
           <Text style={styles.mainText}>{props.cityName}</Text>
-          <Text style={styles.time}>{props.time}</Text>
+          <Text style={styles.time}>
+            {props.current.date.substring(11, 16)}
+          </Text>
         </View>
-        <Text style={styles.description}>{props.iconPhrase}</Text>
+        <Text style={styles.description}>{props.current.iconPhrase}</Text>
       </View>
       <View style={styles.rightContainer}>
-        <Text style={styles.mainText}>{props.temp}°</Text>
+        <Text style={styles.mainText}>{props.current.temp}°</Text>
         <Text style={styles.tempsText}>
-          Máx.:{props.maxTemp}° Mín.:{props.minTemp}°
+          Máx.:{props.dailyForecast[0].maxTemp}° Mín.:
+          {props.dailyForecast[0].minTemp}°
         </Text>
       </View>
       {/* </ImageBackground> */}
