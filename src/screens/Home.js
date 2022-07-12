@@ -90,7 +90,7 @@ export default class Home extends Component {
             {
               latlng: `${position.coords.latitude},${position.coords.longitude}`,
             }
-            // this.getCityInfoByLatLng
+            // ,this.getCityInfoByLatLng
           )
           console.log(this.state.latlng)
         },

@@ -4,12 +4,12 @@
         "source": "C:\\Users\\gusta\\Documents\\AppsProprios\\WeatherApp\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_round.png"
     },
     {
-        "merged": "C:\\Users\\gusta\\Documents\\AppsProprios\\WeatherApp\\android\\app\\build\\intermediates\\merged_res\\debug\\mipmap-xxxhdpi_ic_launcher.png.flat",
-        "source": "C:\\Users\\gusta\\Documents\\AppsProprios\\WeatherApp\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png"
-    },
-    {
         "merged": "C:\\Users\\gusta\\Documents\\AppsProprios\\WeatherApp\\android\\app\\build\\intermediates\\merged_res\\debug\\mipmap-hdpi_ic_launcher_round.png.flat",
         "source": "C:\\Users\\gusta\\Documents\\AppsProprios\\WeatherApp\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\gusta\\Documents\\AppsProprios\\WeatherApp\\android\\app\\build\\intermediates\\merged_res\\debug\\mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\gusta\\Documents\\AppsProprios\\WeatherApp\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png"
     },
     {
         "merged": "C:\\Users\\gusta\\Documents\\AppsProprios\\WeatherApp\\android\\app\\build\\intermediates\\merged_res\\debug\\mipmap-xxhdpi_ic_launcher.png.flat",
