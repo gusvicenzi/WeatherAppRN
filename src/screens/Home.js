@@ -28,6 +28,9 @@ export default class Home extends Component {
   state = {
     ...initialState,
   }
+  // state = {
+  //   ...this.props.city,
+  // }
 
   componentDidMount = async () => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
@@ -265,10 +268,10 @@ export default class Home extends Component {
   }
 
   render() {
-    // console.log(this.context)
-    // const { cityName } = this.context.state
-    // console.log(Object.keys(this.context.state))
-    // console.log(cityName)
+    console.log(this.context)
+    const { cityName } = this.context.state.local
+    console.log(Object.keys(this.context.state))
+    console.log(cityName)
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <ImageBackground
