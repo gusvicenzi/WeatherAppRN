@@ -268,10 +268,10 @@ export default class Home extends Component {
   }
 
   render() {
-    console.log(this.context)
-    const { cityName } = this.context.state.local
-    console.log(Object.keys(this.context.state))
-    console.log(cityName)
+    // console.log(this.context)
+    // const { cityName } = this.context.state.local
+    // console.log(Object.keys(this.context.state))
+    // console.log(cityName)
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <ImageBackground

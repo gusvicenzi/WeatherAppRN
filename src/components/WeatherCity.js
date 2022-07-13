@@ -30,11 +30,11 @@ export default class Home extends Component {
   // }
 
   getCidade = () => {
-    console.log(Object.keys(this.context.state.cityList[this.props.index]))
-    console.log(this.context.state.cityList[this.props.index].cityName)
-    console.log(this.context.state.cityList[this.props.index].cityCode)
+    // console.log(Object.keys(this.context.state.cityList[this.props.index]))
+    // console.log(this.context.state.cityList[this.props.index].cityName)
+    // console.log(this.context.state.cityList[this.props.index].cityCode)
     this.context.getCityInfoByCityName(this.props.index)
-    console.log(this.context.state.cityList[this.props.index].cityCode)
+    // console.log(this.context.state.cityList[this.props.index].cityCode)
   }
   render() {
     // console.log(this.context)

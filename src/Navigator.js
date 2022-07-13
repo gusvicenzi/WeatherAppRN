@@ -23,10 +23,10 @@ const TopTabWeathers = props => {
         name="Home"
         component={Home}
       /> */}
-      <TopTab.Screen
+      {/* <TopTab.Screen
         name="Home"
         component={Home}
-      />
+      /> */}
       <TopTab.Screen
         name="Primeira cidade"
         options={{ title: 'Primeira' }}>
