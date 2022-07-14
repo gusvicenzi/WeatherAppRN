@@ -24,7 +24,7 @@ export class WeatherProvider extends Component {
       // ,this.updateWeather
     )
     // this.updateWeather()
-    this.getLatlng()
+    // this.getLatlng()
   }
 
   updateWeather = async () => {
@@ -91,9 +91,9 @@ export class WeatherProvider extends Component {
                 ...prevState.local,
                 latlng: `${position.coords.latitude},${position.coords.longitude}`,
               },
-            })
+            }),
 
-            // ,this.getCityInfoByLatLng
+            this.getCityInfoByLatLng
           )
           console.log('latlng: ', this.state.local.latlng)
         },
@@ -114,14 +114,19 @@ export class WeatherProvider extends Component {
   getCityInfoByLatLng = async () => {
     try {
       const res = await axios.get(
-        `http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${accuweatherApiKey}&q=${this.state.latlng}&language=pt-br`
+        `http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${accuweatherApiKey}&q=${this.state.local.latlng}&language=pt-br`
       )
-      console.log(res.data)
       const cityCode = res.data.Key
       const cityName = res.data.LocalizedName
       console.log('Código da cidade accuweather:', cityCode)
       console.log('Nome da cidade:', cityName)
-      this.setState({ cityCode, cityName }, this.getCurrentWeather)
+      this.setState(
+        prevState => ({
+          ...prevState,
+          local: { ...prevState.local, cityCode, cityName },
+        }),
+        this.getCurrentWeather
+      )
     } catch (e) {
       console.log(e)
     }
@@ -151,8 +156,13 @@ export class WeatherProvider extends Component {
 
   getCurrentWeather = async index => {
     try {
-      const cityCode = this.state.cityList[index].cityCode
+      console.log('index', index)
+      const cityCode =
+        index != undefined
+          ? this.state.cityList[index].cityCode
+          : this.state.local.cityCode
       console.log(cityCode)
+      console.log('Citycode list: ', this.state.cityList[index].cityCode)
       const res = await axios.get(
         `http://dataservice.accuweather.com/currentconditions/v1/${cityCode}?apikey=${accuweatherApiKey}&language=pt-br`
       )
@@ -166,16 +176,26 @@ export class WeatherProvider extends Component {
         precipitaionType: today.PrecipitationType,
         isDayTime: today.IsDayTime,
       }
-      this.setState(
-        prevState => ({
-          cityList: prevState.cityList.map((city, i) =>
-            i === index ? { ...city, current } : city
-          ),
-        }),
-        () => {
-          this.get12HourForecast(index)
-        }
-      )
+      if (!index) {
+        this.setState(
+          prevState => ({
+            ...prevState,
+            local: { ...prevState.local, current },
+          }),
+          this.get12HourForecast
+        )
+      } else {
+        this.setState(
+          prevState => ({
+            cityList: prevState.cityList.map((city, i) =>
+              i === index ? { ...city, current } : city
+            ),
+          }),
+          () => {
+            this.get12HourForecast(index)
+          }
+        )
+      }
     } catch (e) {
       console.log(e)
     }
@@ -183,7 +203,9 @@ export class WeatherProvider extends Component {
 
   get12HourForecast = async index => {
     try {
-      const cityCode = this.state.cityList[index].cityCode
+      const cityCode = index
+        ? this.state.cityList[index].cityCode
+        : this.state.local.cityCode
       const res = await axios.get(
         `http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/${cityCode}?apikey=${accuweatherApiKey}&language=pt-br&metric=true`
       )
@@ -192,16 +214,26 @@ export class WeatherProvider extends Component {
         hourly12Forecast.push(this.hourlyForecast(hour))
       }
 
-      this.setState(
-        prevState => ({
-          cityList: prevState.cityList.map((city, i) =>
-            i === index ? { ...city, hourly12Forecast } : city
-          ),
-        }),
-        () => {
-          this.get5DayForecast(index)
-        }
-      )
+      if (!index) {
+        this.setState(
+          prevState => ({
+            ...prevState,
+            local: { ...prevState.local, hourly12Forecast },
+          }),
+          this.get5DayForecast
+        )
+      } else {
+        this.setState(
+          prevState => ({
+            cityList: prevState.cityList.map((city, i) =>
+              i === index ? { ...city, hourly12Forecast } : city
+            ),
+          }),
+          () => {
+            this.get5DayForecast(index)
+          }
+        )
+      }
     } catch (e) {
       console.log(e)
     }
@@ -209,7 +241,9 @@ export class WeatherProvider extends Component {
 
   get5DayForecast = async index => {
     try {
-      const cityCode = this.state.cityList[index].cityCode
+      const cityCode = index
+        ? this.state.cityList[index].cityCode
+        : this.state.local.cityCode
       const res = await axios.get(
         `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityCode}?apikey=${accuweatherApiKey}&language=pt-br&metric=true`
       )
@@ -217,15 +251,24 @@ export class WeatherProvider extends Component {
       for (let day of res.data.DailyForecasts) {
         dailyForecast.push(this.dailyForecast(day))
       }
-
-      this.setState(
-        prevState => ({
-          cityList: prevState.cityList.map((city, i) =>
-            i === index ? { ...city, dailyForecast } : city
-          ),
-        }),
-        this.saveSateToAsyncStorage
-      )
+      if (!index) {
+        this.setState(
+          prevState => ({
+            ...prevState,
+            local: { ...prevState.local, dailyForecast },
+          }),
+          this.saveSateToAsyncStorage
+        )
+      } else {
+        this.setState(
+          prevState => ({
+            cityList: prevState.cityList.map((city, i) =>
+              i === index ? { ...city, dailyForecast } : city
+            ),
+          }),
+          this.saveSateToAsyncStorage
+        )
+      }
     } catch (e) {
       console.log(e)
     }
@@ -276,10 +319,10 @@ export class WeatherProvider extends Component {
   }
 
   render() {
-    const { getCityInfoByCityName } = this
+    const { getCityInfoByCityName, getLatlng } = this
     return (
       <WeatherContext.Provider
-        value={{ state: this.state, getCityInfoByCityName }}>
+        value={{ state: this.state, getCityInfoByCityName, getLatlng }}>
         {this.props.children}
       </WeatherContext.Provider>
     )
