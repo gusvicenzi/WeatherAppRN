@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   },
   header: {
     flex: 1,
-    paddingTop: 35,
+    paddingTop: 70,
     paddingBottom: 10,
     justifyContent: 'center',
     alignItems: 'center',

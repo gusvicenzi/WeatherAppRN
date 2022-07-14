@@ -37,11 +37,12 @@ export default class SearchCity extends Component {
             <Text style={styles.searchButtonText}>Buscar</Text>
           </TouchableOpacity>
         </View>
-        <View>
+        <View style={{ width: '90%' }}>
           <FlatList
             data={state.cityList}
             keyExtractor={item => item.cityCode}
             renderItem={({ item }) => <CityCard {...item} />}
+            style={{ alignContent: 'center' }}
           />
         </View>
       </View>
@@ -64,6 +65,7 @@ const styles = StyleSheet.create({
   header: {
     width: '90%',
     alignItems: 'flex-start',
+    marginVertical: 10,
   },
   headerTitle: {
     fontSize: 30,
@@ -72,6 +74,7 @@ const styles = StyleSheet.create({
   searchContainer: {
     flexDirection: 'row',
     width: '90%',
+    marginBottom: 20,
   },
   inputCity: {
     borderWidth: 1,
