@@ -17,17 +17,34 @@ const TopTabWeathers = props => {
   // console.log(props.route)
 
   const weather = useContext(WeatherContext)
+  const cityListSize = weather.state.cityList.length
+  console.log(cityListSize)
+
+  const generateWeatherTabs = () => {
+    let tabs = weather.state.cityList.map((city, i) => {
+      return (
+        <TopTab.Screen
+          name={city.cityName}
+          options={{ title: city.cityName }}>
+          {props => (
+            <WeatherCity
+              {...props}
+              index={i}
+            />
+          )}
+        </TopTab.Screen>
+      )
+    })
+    return tabs
+  }
   return (
     <TopTab.Navigator>
       {/* <TopTab.Screen
         name="Home"
         component={Home}
       /> */}
+      {generateWeatherTabs()}
       {/* <TopTab.Screen
-        name="Home"
-        component={Home}
-      /> */}
-      <TopTab.Screen
         name="Primeira cidade"
         options={{ title: 'Primeira' }}>
         {props => (
@@ -46,11 +63,7 @@ const TopTabWeathers = props => {
             index={1}
           />
         )}
-      </TopTab.Screen>
-      {/* <TopTab.Screen
-        name="Home2"
-        component={Home}
-      /> */}
+      </TopTab.Screen> */}
     </TopTab.Navigator>
   )
 }
