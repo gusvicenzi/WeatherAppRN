@@ -321,11 +321,76 @@ export class WeatherProvider extends Component {
     return hourForecast
   }
 
+  addCity = cityName => {
+    const newCity = {
+      cityName,
+      cityCode: 'xxxx',
+      latlng: '',
+      current: {
+        date: '2022-07-07T14:20:00-03:00',
+        temp: null,
+        icon: 1,
+        iconPhrase: '',
+        hasPrecipitation: false,
+        precipitaionType: null,
+        isDayTime: true,
+      },
+      dailyForecast: [
+        {
+          date: '2022-07-07T07:00:00-03:00',
+          minTemp: 9,
+          maxTemp: 30,
+          day: {
+            icon: 7,
+            iconPhrase: 'Nublado',
+            hasPrecipitation: false,
+            precipitaionType: null,
+            precipitaionIntensity: null,
+          },
+          night: {
+            icon: 34,
+            iconPhrase: 'Predominantemente aberto',
+            hasPrecipitation: false,
+            precipitaionType: null,
+            precipitaionIntensity: null,
+          },
+        },
+      ],
+      hourly12Forecast: [
+        {
+          date: '2022-07-07T13:00:00-03:00',
+          icon: 7,
+          iconPhrase: 'Nublado',
+          hasPrecipitation: false,
+          isDaylight: true,
+          temp: 25,
+          precipitaionProbability: 0,
+        },
+      ],
+    }
+
+    this.setState(
+      prevState => ({
+        cityList: [...prevState.cityList, newCity],
+      })
+      // () => this.getCurrentWeather(index)
+    )
+    console.log('Nova cidade: ', newCity)
+    for (let city of this.state.cityList) {
+      console.log(city.cityName)
+    }
+  }
+
   render() {
-    const { getCityInfoByCityName, getLatlng } = this
+    const { getCityInfoByCityName, getLatlng, addCity } = this
     return (
       <WeatherContext.Provider
-        value={{ state: this.state, getCityInfoByCityName, getLatlng }}>
+        value={{
+          state: this.state,
+          getCityInfoByCityName,
+          getLatlng,
+          addCity,
+        }}>
         {this.props.children}
       </WeatherContext.Provider>
     )
