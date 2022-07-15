@@ -16,7 +16,6 @@ export class WeatherProvider extends Component {
 
   componentDidMount = async () => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
-    await AsyncStorage.clear()
     const stateString = await AsyncStorage.getItem('weatherState')
     const savedState = JSON.parse(stateString) || this.state
     this.setState(
@@ -162,7 +161,9 @@ export class WeatherProvider extends Component {
           ? this.state.cityList[index].cityCode
           : this.state.local.cityCode
       console.log(cityCode)
-      console.log('Citycode list: ', this.state.cityList[index].cityCode)
+      index != undefined
+        ? console.log('Citycode list: ', this.state.cityList[index].cityCode)
+        : false
       const res = await axios.get(
         `http://dataservice.accuweather.com/currentconditions/v1/${cityCode}?apikey=${accuweatherApiKey}&language=pt-br`
       )
@@ -176,7 +177,7 @@ export class WeatherProvider extends Component {
         precipitaionType: today.PrecipitationType,
         isDayTime: today.IsDayTime,
       }
-      if (!index) {
+      if (index == undefined) {
         this.setState(
           prevState => ({
             ...prevState,
@@ -203,9 +204,10 @@ export class WeatherProvider extends Component {
 
   get12HourForecast = async index => {
     try {
-      const cityCode = index
-        ? this.state.cityList[index].cityCode
-        : this.state.local.cityCode
+      const cityCode =
+        index != undefined
+          ? this.state.cityList[index].cityCode
+          : this.state.local.cityCode
       const res = await axios.get(
         `http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/${cityCode}?apikey=${accuweatherApiKey}&language=pt-br&metric=true`
       )
@@ -214,7 +216,7 @@ export class WeatherProvider extends Component {
         hourly12Forecast.push(this.hourlyForecast(hour))
       }
 
-      if (!index) {
+      if (index == undefined) {
         this.setState(
           prevState => ({
             ...prevState,
@@ -241,9 +243,10 @@ export class WeatherProvider extends Component {
 
   get5DayForecast = async index => {
     try {
-      const cityCode = index
-        ? this.state.cityList[index].cityCode
-        : this.state.local.cityCode
+      const cityCode =
+        index != undefined
+          ? this.state.cityList[index].cityCode
+          : this.state.local.cityCode
       const res = await axios.get(
         `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityCode}?apikey=${accuweatherApiKey}&language=pt-br&metric=true`
       )
@@ -251,7 +254,7 @@ export class WeatherProvider extends Component {
       for (let day of res.data.DailyForecasts) {
         dailyForecast.push(this.dailyForecast(day))
       }
-      if (!index) {
+      if (index == undefined) {
         this.setState(
           prevState => ({
             ...prevState,
