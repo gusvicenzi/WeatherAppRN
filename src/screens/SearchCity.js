@@ -10,20 +10,24 @@ import {
   // useColorScheme
 } from 'react-native'
 import CityCard from '../components/CityCard'
-// import { initialCardState } from '../common'
+
 import WeatherContext from '../context/WeatherContext'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 export default class SearchCity extends Component {
   state = {
     newCityName: '',
   }
 
-  addCity = nome => {
-    console.log(nome)
-    this.context.addCity(this.state.newCityName)
-    this.setState({ newCityName: '' })
+  addCity = cityName => {
+    console.log(cityName)
+    if (cityName.trim()) {
+      this.context.addCity(cityName.trim())
+      this.setState({ newCityName: '' })
+    } else {
+      console.warn('Cidade inválida', 'Insira um nome válido')
+    }
   }
   render() {
-    // this.context.addCity()
     return (
       <View style={styles.main}>
         <View style={styles.header}>
@@ -39,10 +43,16 @@ export default class SearchCity extends Component {
           <TouchableOpacity
             style={styles.searchButton}
             onPress={() => this.addCity(this.state.newCityName)}>
-            <Text style={styles.searchButtonText}>Buscar</Text>
+            <Text style={styles.searchButtonText}>
+              <MaterialIcons
+                name="add"
+                size={30}
+                color={bgColor}
+              />
+            </Text>
           </TouchableOpacity>
         </View>
-        <View style={{ width: '90%' }}>
+        <View style={{ width: '90%', flex: 1 }}>
           <FlatList
             data={this.context.state.cityList}
             keyExtractor={item => item.cityCode}

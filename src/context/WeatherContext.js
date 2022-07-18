@@ -16,6 +16,7 @@ export class WeatherProvider extends Component {
 
   componentDidMount = async () => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
+    // AsyncStorage.clear()
     const stateString = await AsyncStorage.getItem('weatherState')
     const savedState = JSON.parse(stateString) || this.state
     this.setState(
@@ -131,7 +132,7 @@ export class WeatherProvider extends Component {
     }
   }
 
-  getCityInfoByCityName = async index => {
+  getCityCodeByCityName = async index => {
     try {
       const cityName = this.state.cityList[index].cityName
       const res = await axios.get(
@@ -372,8 +373,8 @@ export class WeatherProvider extends Component {
     this.setState(
       prevState => ({
         cityList: [...prevState.cityList, newCity],
-      })
-      // () => this.getCurrentWeather(index)
+      }),
+      () => this.getCityCodeByCityName(this.state.cityList.length - 1)
     )
     console.log('Nova cidade: ', newCity)
     for (let city of this.state.cityList) {
@@ -382,12 +383,12 @@ export class WeatherProvider extends Component {
   }
 
   render() {
-    const { getCityInfoByCityName, getLatlng, addCity } = this
+    const { getCityCodeByCityName, getLatlng, addCity } = this
     return (
       <WeatherContext.Provider
         value={{
           state: this.state,
-          getCityInfoByCityName,
+          getCityCodeByCityName,
           getLatlng,
           addCity,
         }}>
