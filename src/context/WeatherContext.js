@@ -27,22 +27,22 @@ export class WeatherProvider extends Component {
     // this.getLatlng()
   }
 
-  updateWeather = async () => {
-    // this.getLatlng()
-    // const list = [this.getCityInfoByLatLng, this.getCurrentWeather]
-    // for (let fn of list) {
-    //   await fn()
-    // }
-    // try {
-    //   await this.getCityInfoByLatLng()
-    //   await this.getCurrentWeather()
-    //   await this.get12HourForecast()
-    //   await this.get5DayForecast()
-    // } catch (e) {
-    //   console.log(e)
-    // }
-    // console.log(this.state)
-  }
+  // updateWeather = async () => {
+  //   this.getLatlng()
+  //   const list = [this.getCityCodeByLatLng, this.getCurrentWeather]
+  //   for (let fn of list) {
+  //     await fn()
+  //   }
+  //   try {
+  //     await this.getCityCodeByLatLng()
+  //     await this.getCurrentWeather()
+  //     await this.get12HourForecast()
+  //     await this.get5DayForecast()
+  //   } catch (e) {
+  //     console.log(e)
+  //   }
+  //   console.log(this.state)
+  // }
 
   requestLocationPermission = async () => {
     try {
@@ -69,7 +69,7 @@ export class WeatherProvider extends Component {
             },
           })
 
-          // ,this.getCityInfoByLatLng
+          // ,this.getCityCodeByLatLng
         )
         // this.setState({ hasLocationPermission: true })
       } else {
@@ -93,7 +93,7 @@ export class WeatherProvider extends Component {
               },
             }),
 
-            this.getCityInfoByLatLng
+            this.getCityCodeByLatLng
           )
           console.log('latlng: ', this.state.local.latlng)
         },
@@ -111,7 +111,7 @@ export class WeatherProvider extends Component {
     console.log('Salvou estado no asyncstorage')
   }
 
-  getCityInfoByLatLng = async () => {
+  getCityCodeByLatLng = async () => {
     try {
       const res = await axios.get(
         `http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${accuweatherApiKey}&q=${this.state.local.latlng}&language=pt-br`
@@ -175,7 +175,8 @@ export class WeatherProvider extends Component {
         icon: today.WeatherIcon,
         iconPhrase: today.WeatherText,
         hasPrecipitation: today.HasPrecipitation,
-        precipitaionType: today.PrecipitationType,
+        precipitationType: today.PrecipitationType,
+        //adicionar precipitationIntensity
         isDayTime: today.IsDayTime,
       }
       if (index == undefined) {
@@ -287,22 +288,22 @@ export class WeatherProvider extends Component {
         icon: nthDayForecast.Day.Icon,
         iconPhrase: nthDayForecast.Day.IconPhrase,
         hasPrecipitation: nthDayForecast.Day.HasPrecipitation,
-        precipitaionType: nthDayForecast.Day.HasPrecipitation
-          ? nthDayForecast.Day.PrecipitaionType
+        precipitationType: nthDayForecast.Day.HasPrecipitation
+          ? nthDayForecast.Day.PrecipitationType
           : null,
-        precipitaionIntensity: nthDayForecast.Day.HasPrecipitation
-          ? nthDayForecast.Day.PrecipitaionIntensity
+        precipitationIntensity: nthDayForecast.Day.HasPrecipitation
+          ? nthDayForecast.Day.PrecipitationIntensity
           : null,
       },
       night: {
         icon: nthDayForecast.Night.Icon,
         iconPhrase: nthDayForecast.Night.IconPhrase,
         hasPrecipitation: nthDayForecast.Night.HasPrecipitation,
-        precipitaionType: nthDayForecast.Night.HasPrecipitation
-          ? nthDayForecast.Night.PrecipitaionType
+        precipitationType: nthDayForecast.Night.HasPrecipitation
+          ? nthDayForecast.Night.PrecipitationType
           : null,
-        precipitaionIntensity: nthDayForecast.Night.HasPrecipitation
-          ? nthDayForecast.Night.PrecipitaionIntensity
+        precipitationIntensity: nthDayForecast.Night.HasPrecipitation
+          ? nthDayForecast.Night.PrecipitationIntensity
           : null,
       },
     }
@@ -317,7 +318,7 @@ export class WeatherProvider extends Component {
       hasPrecipitation: nthHourDay.HasPrecipitation,
       isDaylight: nthHourDay.IsDaylight,
       temp: Math.round(nthHourDay.Temperature.Value),
-      precipitaionProbability: nthHourDay.precipitaionProbability,
+      precipitationProbability: nthHourDay.PrecipitationProbability,
     }
     return hourForecast
   }
@@ -333,7 +334,7 @@ export class WeatherProvider extends Component {
         icon: 1,
         iconPhrase: '',
         hasPrecipitation: false,
-        precipitaionType: null,
+        precipitationType: null,
         isDayTime: true,
       },
       dailyForecast: [
@@ -345,15 +346,15 @@ export class WeatherProvider extends Component {
             icon: 7,
             iconPhrase: 'Nublado',
             hasPrecipitation: false,
-            precipitaionType: null,
-            precipitaionIntensity: null,
+            precipitationType: null,
+            precipitationIntensity: null,
           },
           night: {
             icon: 34,
             iconPhrase: 'Predominantemente aberto',
             hasPrecipitation: false,
-            precipitaionType: null,
-            precipitaionIntensity: null,
+            precipitationType: null,
+            precipitationIntensity: null,
           },
         },
       ],
@@ -365,7 +366,7 @@ export class WeatherProvider extends Component {
           hasPrecipitation: false,
           isDaylight: true,
           temp: 25,
-          precipitaionProbability: 0,
+          precipitationProbability: 0,
         },
       ],
     }
