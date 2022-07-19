@@ -377,7 +377,7 @@ export class WeatherProvider extends Component {
       }),
       () => this.getCityCodeByCityName(this.state.cityList.length - 1)
     )
-    console.log('Nova cidade: ', newCity)
+    console.log('Nova cidade adicionada: ', newCity)
     for (let city of this.state.cityList) {
       console.log(city.cityName)
     }

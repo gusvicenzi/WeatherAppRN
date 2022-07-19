@@ -18,12 +18,23 @@ export default class SearchCity extends Component {
     newCityName: '',
   }
 
-  onDelete = index => {}
+  onDelete = index => {
+    this.context.removeCity(index)
+  }
+
+  navigateToCityWeather = cidade => {
+    this.props.navigation.navigate('Main', { screen: cidade })
+  }
 
   addCity = cityName => {
     console.log(cityName)
     if (cityName.trim()) {
-      this.context.addCity(cityName.trim())
+      const isDuplicateCity = this.context.state.cityList.some(
+        city => city.cityName == cityName
+      )
+      isDuplicateCity
+        ? console.warn('Cidade duplicada', 'Você já adicionou essa cidade!')
+        : this.context.addCity(cityName.trim())
       this.setState({ newCityName: '' })
     } else {
       console.warn('Cidade inválida', 'Insira um nome válido')
@@ -58,10 +69,12 @@ export default class SearchCity extends Component {
           <FlatList
             data={this.context.state.cityList}
             keyExtractor={item => item.cityCode}
-            renderItem={({ item }) => (
+            renderItem={({ item, index }) => (
               <CityCard
                 {...item}
-                onDelete={() => this.context.removeCity(1)}
+                onDelete={this.onDelete}
+                navigateToCityWeather={this.navigateToCityWeather}
+                index={index}
               />
             )}
             // style={{ alignContent: 'center' }}

@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ImageBackground,
   TouchableOpacity,
+  TouchableWithoutFeedback,
 } from 'react-native'
 import { Swipeable } from 'react-native-gesture-handler'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
@@ -15,7 +16,7 @@ export default props => {
     return (
       <TouchableOpacity
         style={styles.right}
-        onPress={() => props.onDelete && props.onDelete('1')}>
+        onPress={() => props.onDelete && props.onDelete(props.index)}>
         <MaterialIcons
           name="delete"
           size={40}
@@ -24,32 +25,36 @@ export default props => {
       </TouchableOpacity>
     )
   }
+
   return (
     <Swipeable renderRightActions={renderRightActions}>
-      <View style={styles.card}>
-        {/* <ImageBackground
+      <TouchableWithoutFeedback
+        onPress={() => props.navigateToCityWeather(props.cityName)}>
+        <View style={styles.card}>
+          {/* <ImageBackground
         source={getIcon(props.icon, props.isDayTime)[1]}
         style={styles.background}
         imageStyle={{ height: 600, width: 350 }}
         resizeMode="stretch"> */}
-        <View style={styles.leftContainer}>
-          <View>
-            <Text style={styles.mainText}>{props.cityName}</Text>
-            <Text style={styles.time}>
-              {props.current.date.substring(11, 16)}
+          <View style={styles.leftContainer}>
+            <View>
+              <Text style={styles.mainText}>{props.cityName}</Text>
+              <Text style={styles.time}>
+                {props.current.date.substring(11, 16)}
+              </Text>
+            </View>
+            <Text style={styles.description}>{props.current.iconPhrase}</Text>
+          </View>
+          <View style={styles.rightContainer}>
+            <Text style={styles.mainText}>{props.current.temp}°</Text>
+            <Text style={styles.tempsText}>
+              Máx.:{props.dailyForecast[0].maxTemp}° Mín.:
+              {props.dailyForecast[0].minTemp}°
             </Text>
           </View>
-          <Text style={styles.description}>{props.current.iconPhrase}</Text>
+          {/* </ImageBackground> */}
         </View>
-        <View style={styles.rightContainer}>
-          <Text style={styles.mainText}>{props.current.temp}°</Text>
-          <Text style={styles.tempsText}>
-            Máx.:{props.dailyForecast[0].maxTemp}° Mín.:
-            {props.dailyForecast[0].minTemp}°
-          </Text>
-        </View>
-        {/* </ImageBackground> */}
-      </View>
+      </TouchableWithoutFeedback>
     </Swipeable>
   )
 }
