@@ -18,6 +18,8 @@ export default class SearchCity extends Component {
     newCityName: '',
   }
 
+  onDelete = index => {}
+
   addCity = cityName => {
     console.log(cityName)
     if (cityName.trim()) {
@@ -56,8 +58,13 @@ export default class SearchCity extends Component {
           <FlatList
             data={this.context.state.cityList}
             keyExtractor={item => item.cityCode}
-            renderItem={({ item }) => <CityCard {...item} />}
-            style={{ alignContent: 'center' }}
+            renderItem={({ item }) => (
+              <CityCard
+                {...item}
+                onDelete={() => this.context.removeCity(1)}
+              />
+            )}
+            // style={{ alignContent: 'center' }}
           />
         </View>
       </View>
@@ -73,7 +80,7 @@ let secondaryColor = isDarkMode ? 'white' : 'black'
 
 const styles = StyleSheet.create({
   main: {
-    backgroundColor: bgColor,
+    backgroundColor: 'bgColor',
     flex: 1,
     alignItems: 'center',
   },

@@ -33,7 +33,7 @@ export default class Home extends Component {
     // console.log(Object.keys(this.context.state.cityList[this.props.index]))
     // console.log(this.context.state.cityList[this.props.index].cityName)
     // console.log(this.context.state.cityList[this.props.index].cityCode)
-    this.context.getCityCodeByCityName(this.props.index)
+    // this.context.getCityCodeByCityName(this.props.index)
     // console.log(this.context.state.cityList[this.props.index].cityCode)
   }
   render() {
@@ -127,7 +127,10 @@ export default class Home extends Component {
               <Text style={{ textAlign: 'center' }}>
                 Desenvolvido por deVicenzi
               </Text>
-              <TouchableOpacity onPress={this.getCidade}>
+              <TouchableOpacity
+                onPress={() =>
+                  this.context.getCityCodeByCityName(this.props.index)
+                }>
                 <Text>pega cidade</Text>
               </TouchableOpacity>
             </View>

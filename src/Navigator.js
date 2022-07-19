@@ -9,6 +9,7 @@ import Home from './screens/Home'
 import WeatherCity from './components/WeatherCity'
 import SearchCity from './screens/SearchCity'
 import WeatherContext, { WeatherProvider } from './context/WeatherContext'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 const Tab = createBottomTabNavigator()
 const TopTab = createMaterialTopTabNavigator()
@@ -100,43 +101,45 @@ const TopTabWeathers = props => {
 
 export default Navigator = () => {
   return (
-    <WeatherProvider>
-      <NavigationContainer>
-        <Tab.Navigator
-          screenOptions={{ headerShown: false, tabBarShowLabel: false }}
-          initialRouteName="SearchCity">
-          <Tab.Screen
-            name="Main"
-            component={TopTabWeathers}
-            options={{
-              tabBarIcon: ({ focused, color }) => {
-                return (
-                  <MaterialIcons
-                    name="home"
-                    size={25}
-                    color={color}
-                  />
-                )
-              },
-            }}
-          />
-          <Tab.Screen
-            name="SearchCity"
-            component={SearchCity}
-            options={{
-              tabBarIcon: ({ focused, color }) => {
-                return (
-                  <MaterialIcons
-                    name="search"
-                    size={25}
-                    color={color}
-                  />
-                )
-              },
-            }}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
-    </WeatherProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <WeatherProvider>
+        <NavigationContainer>
+          <Tab.Navigator
+            screenOptions={{ headerShown: false, tabBarShowLabel: false }}
+            initialRouteName="SearchCity">
+            <Tab.Screen
+              name="Main"
+              component={TopTabWeathers}
+              options={{
+                tabBarIcon: ({ focused, color }) => {
+                  return (
+                    <MaterialIcons
+                      name="home"
+                      size={25}
+                      color={color}
+                    />
+                  )
+                },
+              }}
+            />
+            <Tab.Screen
+              name="SearchCity"
+              component={SearchCity}
+              options={{
+                tabBarIcon: ({ focused, color }) => {
+                  return (
+                    <MaterialIcons
+                      name="search"
+                      size={25}
+                      color={color}
+                    />
+                  )
+                },
+              }}
+            />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </WeatherProvider>
+    </GestureHandlerRootView>
   )
 }

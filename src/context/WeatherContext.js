@@ -383,8 +383,15 @@ export class WeatherProvider extends Component {
     }
   }
 
+  removeCity = index => {
+    this.setState(prevState => ({
+      cityList: prevState.cityList.filter((city, i) => i != index),
+    }))
+    this.saveSateToAsyncStorage()
+  }
+
   render() {
-    const { getCityCodeByCityName, getLatlng, addCity } = this
+    const { getCityCodeByCityName, getLatlng, addCity, removeCity } = this
     return (
       <WeatherContext.Provider
         value={{
@@ -392,6 +399,7 @@ export class WeatherProvider extends Component {
           getCityCodeByCityName,
           getLatlng,
           addCity,
+          removeCity,
         }}>
         {this.props.children}
       </WeatherContext.Provider>

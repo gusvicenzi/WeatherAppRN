@@ -10,6 +10,7 @@ MERGED from [com.facebook.flipper:flipper-network-plugin:0.125.0] C:\Users\gusta
 MERGED from [com.facebook.flipper:flipper-fresco-plugin:0.125.0] C:\Users\gusta\.gradle\caches\transforms-3\3cdfe1d94f781b3cd4fe147ba3c7c694\transformed\jetified-flipper-fresco-plugin-0.125.0\AndroidManifest.xml:8:1-15:12
 MERGED from [:react-native-async-storage_async-storage] C:\Users\gusta\Documents\AppsProprios\WeatherApp\node_modules\@react-native-async-storage\async-storage\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-geolocation-service] C:\Users\gusta\Documents\AppsProprios\WeatherApp\node_modules\react-native-geolocation-service\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:react-native-gesture-handler] C:\Users\gusta\Documents\AppsProprios\WeatherApp\node_modules\react-native-gesture-handler\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-pager-view] C:\Users\gusta\Documents\AppsProprios\WeatherApp\node_modules\react-native-pager-view\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-safe-area-context] C:\Users\gusta\Documents\AppsProprios\WeatherApp\node_modules\react-native-safe-area-context\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-screens] C:\Users\gusta\Documents\AppsProprios\WeatherApp\node_modules\react-native-screens\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
@@ -41,9 +42,9 @@ MERGED from [com.facebook.fresco:middleware:2.6.0] C:\Users\gusta\.gradle\caches
 MERGED from [com.facebook.fresco:ui-common:2.6.0] C:\Users\gusta\.gradle\caches\transforms-3\68677fb7c27918c0ed65aa4eb422a170\transformed\jetified-ui-common-2.6.0\AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\gusta\.gradle\caches\transforms-3\6afad4ecd3a57249bbfd25877602d3c5\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\gusta\.gradle\caches\transforms-3\1bd2365acb235464b453b7b03dd90348\transformed\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core-ktx:1.6.0] C:\Users\gusta\.gradle\caches\transforms-3\6362dee607cba3e65f4f5cc5b2277067\transformed\jetified-core-ktx-1.6.0\AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\gusta\.gradle\caches\transforms-3\f5cacfba5241f8337678d0b4c141c9dd\transformed\jetified-viewpager2-1.0.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\gusta\.gradle\caches\transforms-3\bcc96c010b0705c2f6d616eca2e71ddc\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.core:core-ktx:1.5.0] C:\Users\gusta\.gradle\caches\transforms-3\0865e12d180e286b4d5075cac442ee42\transformed\jetified-core-ktx-1.5.0\AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.sqlite:sqlite:2.1.0] C:\Users\gusta\.gradle\caches\transforms-3\31689151159397f35f0a3d96b1b29f20\transformed\sqlite-2.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.gms:play-services-location:18.0.0] C:\Users\gusta\.gradle\caches\transforms-3\c51053f7d6550d77271a35e36640605e\transformed\jetified-play-services-location-18.0.0\AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.android.gms:play-services-base:17.5.0] C:\Users\gusta\.gradle\caches\transforms-3\48e2a0365004709cfebc7ee6abd455fc\transformed\jetified-play-services-base-17.5.0\AndroidManifest.xml:17:1-29:12
@@ -201,6 +202,8 @@ MERGED from [:react-native-async-storage_async-storage] C:\Users\gusta\Documents
 MERGED from [:react-native-async-storage_async-storage] C:\Users\gusta\Documents\AppsProprios\WeatherApp\node_modules\@react-native-async-storage\async-storage\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-geolocation-service] C:\Users\gusta\Documents\AppsProprios\WeatherApp\node_modules\react-native-geolocation-service\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-geolocation-service] C:\Users\gusta\Documents\AppsProprios\WeatherApp\node_modules\react-native-geolocation-service\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-gesture-handler] C:\Users\gusta\Documents\AppsProprios\WeatherApp\node_modules\react-native-gesture-handler\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-gesture-handler] C:\Users\gusta\Documents\AppsProprios\WeatherApp\node_modules\react-native-gesture-handler\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-pager-view] C:\Users\gusta\Documents\AppsProprios\WeatherApp\node_modules\react-native-pager-view\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-pager-view] C:\Users\gusta\Documents\AppsProprios\WeatherApp\node_modules\react-native-pager-view\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-safe-area-context] C:\Users\gusta\Documents\AppsProprios\WeatherApp\node_modules\react-native-safe-area-context\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
@@ -263,12 +266,12 @@ MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\gus
 MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\gusta\.gradle\caches\transforms-3\6afad4ecd3a57249bbfd25877602d3c5\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\gusta\.gradle\caches\transforms-3\1bd2365acb235464b453b7b03dd90348\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\gusta\.gradle\caches\transforms-3\1bd2365acb235464b453b7b03dd90348\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core-ktx:1.6.0] C:\Users\gusta\.gradle\caches\transforms-3\6362dee607cba3e65f4f5cc5b2277067\transformed\jetified-core-ktx-1.6.0\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.core:core-ktx:1.6.0] C:\Users\gusta\.gradle\caches\transforms-3\6362dee607cba3e65f4f5cc5b2277067\transformed\jetified-core-ktx-1.6.0\AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\gusta\.gradle\caches\transforms-3\f5cacfba5241f8337678d0b4c141c9dd\transformed\jetified-viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\gusta\.gradle\caches\transforms-3\f5cacfba5241f8337678d0b4c141c9dd\transformed\jetified-viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\gusta\.gradle\caches\transforms-3\bcc96c010b0705c2f6d616eca2e71ddc\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\gusta\.gradle\caches\transforms-3\bcc96c010b0705c2f6d616eca2e71ddc\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.core:core-ktx:1.5.0] C:\Users\gusta\.gradle\caches\transforms-3\0865e12d180e286b4d5075cac442ee42\transformed\jetified-core-ktx-1.5.0\AndroidManifest.xml:5:5-7:41
-MERGED from [androidx.core:core-ktx:1.5.0] C:\Users\gusta\.gradle\caches\transforms-3\0865e12d180e286b4d5075cac442ee42\transformed\jetified-core-ktx-1.5.0\AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.sqlite:sqlite:2.1.0] C:\Users\gusta\.gradle\caches\transforms-3\31689151159397f35f0a3d96b1b29f20\transformed\sqlite-2.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.sqlite:sqlite:2.1.0] C:\Users\gusta\.gradle\caches\transforms-3\31689151159397f35f0a3d96b1b29f20\transformed\sqlite-2.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [com.google.android.gms:play-services-location:18.0.0] C:\Users\gusta\.gradle\caches\transforms-3\c51053f7d6550d77271a35e36640605e\transformed\jetified-play-services-location-18.0.0\AndroidManifest.xml:5:5-44
