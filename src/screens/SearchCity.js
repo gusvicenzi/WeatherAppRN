@@ -7,6 +7,7 @@ import {
   Appearance,
   TouchableOpacity,
   FlatList,
+  Alert,
   // useColorScheme
 } from 'react-native'
 import CityCard from '../components/CityCard'
@@ -30,14 +31,22 @@ export default class SearchCity extends Component {
     console.log(cityName)
     if (cityName.trim()) {
       const isDuplicateCity = this.context.state.cityList.some(
-        city => city.cityName == cityName
+        city => city.cityName.toLowerCase() == cityName.toLowerCase()
       )
       isDuplicateCity
-        ? console.warn('Cidade duplicada', 'Você já adicionou essa cidade!')
+        ? Alert.alert('Cidade duplicada', 'Você já adicionou essa cidade!', [
+            {
+              text: 'Ok',
+            },
+          ])
         : this.context.addCity(cityName.trim())
       this.setState({ newCityName: '' })
     } else {
-      console.warn('Cidade inválida', 'Insira um nome válido')
+      Alert.alert('Cidade inválida', 'Insira um nome válido', [
+        {
+          text: 'Ok',
+        },
+      ])
     }
   }
   render() {

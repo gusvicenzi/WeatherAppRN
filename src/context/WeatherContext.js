@@ -3,6 +3,7 @@ import { LogBox, PermissionsAndroid } from 'react-native'
 
 import axios from 'axios'
 import { accuweatherApiKey } from '../../apiKey'
+import { ACCUWEATHERAPIKEY } from 'react-native-dotenv'
 import { generalInitialState } from '../common'
 import Geolocation from 'react-native-geolocation-service'
 import AsyncStorage from '@react-native-async-storage/async-storage'
