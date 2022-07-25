@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   FlatList,
   Alert,
+  Keyboard,
   // useColorScheme
 } from 'react-native'
 import CityCard from '../components/CityCard'
@@ -64,7 +65,10 @@ export default class SearchCity extends Component {
             }></TextInput>
           <TouchableOpacity
             style={styles.searchButton}
-            onPress={() => this.addCity(this.state.newCityName)}>
+            onPress={() => {
+              this.addCity(this.state.newCityName)
+              Keyboard.dismiss()
+            }}>
             <Text style={styles.searchButtonText}>
               <MaterialIcons
                 name="add"

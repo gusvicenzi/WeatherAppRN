@@ -127,12 +127,12 @@ export default class Home extends Component {
               <Text style={{ textAlign: 'center' }}>
                 Desenvolvido por deVicenzi
               </Text>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 onPress={() =>
                   this.context.getCityCodeByCityName(this.props.index)
                 }>
                 <Text>pega cidade</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
           </ScrollView>
         </ImageBackground>

@@ -103,9 +103,9 @@ export default class Home extends Component {
                   renderItem={({ item }) => <DailyForecast {...item} />}
                 />
               </View>
-              <TouchableOpacity onPress={this.context.getLatlng}>
+              {/* <TouchableOpacity onPress={this.context.getLatlng}>
                 <Text>Get city info by latlng</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
               <Text style={{ textAlign: 'center' }}>
                 Desenvolvido por deVicenzi
               </Text>
